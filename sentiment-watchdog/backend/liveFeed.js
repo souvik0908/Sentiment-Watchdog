@@ -2,9 +2,11 @@ import { WebSocketServer } from 'ws';
 import { analyzeAndSaveSentiment } from './sentimentAnalyzer.js';
 import db from './database.js';
 
-const NEGATIVE_SENTIMENTS = ['anger', 'fear', 'sadness'];
+// Remove all DB usage, use only in-memory for demo
+const NEGATIVE_SENTIMENTS = ['anger', 'fear', 'sadness', 'negative'];
 let wss;
 const recentSentiments = [];
+const liveTickets = [];
 
 const channels = ['chat', 'email', 'phone', 'social'];
 
@@ -29,14 +31,17 @@ function broadcast(data) {
 
 function checkForSpike() {
     if (recentSentiments.length < 3) return;
-
     const lastThree = recentSentiments.slice(-3);
-    const allNegative = lastThree.every(sentiment => NEGATIVE_SENTIMENTS.includes(sentiment));
-
+    const allNegative = lastThree.every(sentiment => NEGATIVE_SENTIMENTS.includes(sentiment.label));
     if (allNegative) {
         console.log("SENTIMENT SPIKE DETECTED!");
-        broadcast({ type: 'spike_alert', message: 'Negative sentiment spike detected!' });
-        recentSentiments.length = 0; 
+        const spikeText = lastThree.map(s => s.text).join(' ');
+        broadcast({ 
+            type: 'spike_alert', 
+            message: 'High volume of negative sentiment detected!',
+            text: spikeText 
+        });
+        recentSentiments.length = 0; // Reset after alert
     }
 }
 
@@ -44,10 +49,13 @@ async function simulateIncomingTicket() {
     const ticket = sampleTickets[Math.floor(Math.random() * sampleTickets.length)];
     try {
         const sentimentData = await analyzeAndSaveSentiment(ticket.text, ticket.channel);
-        
-        recentSentiments.push(sentimentData.label.toLowerCase());
+        // Add to recent sentiments for spike detection
+        recentSentiments.push({ label: sentimentData.label.toLowerCase(), text: ticket.text });
         if(recentSentiments.length > 5) recentSentiments.shift();
-        
+        // Add to in-memory live tickets
+        liveTickets.push({ ...sentimentData, text: ticket.text, channel: ticket.channel });
+        if(liveTickets.length > 50) liveTickets.shift();
+        // Broadcast the new ticket to all connected clients
         broadcast({ 
             type: 'new_ticket', 
             data: { 
@@ -56,9 +64,8 @@ async function simulateIncomingTicket() {
                 channel: ticket.channel
             } 
         });
-
+        // Check for negative sentiment spike
         checkForSpike();
-
     } catch (error) {
         console.error('Error in simulation:', error);
     }
@@ -67,18 +74,13 @@ async function simulateIncomingTicket() {
 function startLiveFeed(server) {
     wss = new WebSocketServer({ server });
     console.log('WebSocket server started.');
-
     wss.on('connection', (ws) => {
         console.log('Client connected to WebSocket.');
-        db.all("SELECT * FROM tickets ORDER BY timestamp DESC LIMIT 10", (err, rows) => {
-            if (!err) {
-                ws.send(JSON.stringify({ type: 'history', data: rows }));
-            }
-        });
+        // Send last 10 tickets from memory
+        ws.send(JSON.stringify({ type: 'history', data: liveTickets.slice(-10) }));
         ws.on('close', () => console.log('Client disconnected.'));
     });
-
-    setInterval(simulateIncomingTicket, 8000); 
+    setInterval(simulateIncomingTicket, 8000);
 }
 
 export default startLiveFeed; 
