@@ -44,6 +44,7 @@ const SentimentWatchdog = () => {
   const [forecastData, setForecastData] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activePage, setActivePage] = useState('Home');
+  const [techTab, setTechTab] = useState('Product Update Summary');
 
   const [signup, setSignup] = useState({ firstName: '', lastName: '', email: '', age: '', gender: '', organization: '' });
   const [signupSuccess, setSignupSuccess] = useState(false);
@@ -476,6 +477,51 @@ const SentimentWatchdog = () => {
         )}
         {activePage === 'Dashboard' && (
           <>
+            {/* Executive Summary Card */}
+            <section className="card" style={{ marginBottom: '2rem', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', boxShadow: '0 2px 16px 0 rgba(0,0,0,0.10)', border: '1px solid #e5e7eb', background: 'linear-gradient(90deg, #f0f9ff 0%, #e0e7ff 100%)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1.2rem' }}>
+                <span style={{ fontSize: '2.2rem', color: '#3b82f6' }}>📊</span>
+                <h2 style={{ fontWeight: 800, fontSize: '1.5rem', margin: 0, color: '#222' }}>Executive Summary</h2>
+              </div>
+              <ul style={{ fontSize: '1.1rem', lineHeight: 1.8, color: '#374151', marginLeft: '1.5rem', marginBottom: 0 }}>
+                <li style={{ marginBottom: '0.7rem' }}><b>AI-powered platform</b> delivering real-time, actionable insights from customer conversations across all digital channels.</li>
+                <li style={{ marginBottom: '0.7rem' }}><b>Proactive sentiment monitoring</b> and <b>anomaly detection</b> help organizations address issues before they escalate.</li>
+                <li style={{ marginBottom: '0.7rem' }}><b>Empathetic, AI-generated responses</b> empower support teams to resolve issues faster and more effectively.</li>
+                <li style={{ marginBottom: '0.7rem' }}><b>Enterprise-ready</b> with robust security, compliance, and scalability for global deployments.</li>
+                <li><b>Modern, intuitive dashboard</b> with live analytics, forecasting, and actionable business intelligence.</li>
+              </ul>
+            </section>
+            {/* Key Metrics Card */}
+            <section className="card" style={{ marginBottom: '2rem', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', boxShadow: '0 2px 16px 0 rgba(0,0,0,0.10)', border: '1px solid #e5e7eb', background: '#fff' }}>
+              <h3 style={{ fontWeight: 700, fontSize: '1.2rem', marginBottom: '1.5rem', color: '#222' }}>Key Metrics</h3>
+              <div style={{ display: 'flex', justifyContent: 'space-between', gap: '2rem', flexWrap: 'wrap' }}>
+                <div style={{ flex: 1, minWidth: 150, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '2rem', color: '#3b82f6' }}>💬</span>
+                  <span style={{ fontWeight: 800, fontSize: '2rem', color: '#222' }}>12,450</span>
+                  <span style={{ color: '#374151', fontWeight: 500 }}>Conversations Analyzed</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 150, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '2rem', color: '#10b981' }}>📈</span>
+                  <span style={{ fontWeight: 800, fontSize: '2rem', color: '#222' }}>98.7%</span>
+                  <span style={{ color: '#374151', fontWeight: 500 }}>Sentiment Accuracy</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 150, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '2rem', color: '#f59e0b' }}>⚡</span>
+                  <span style={{ fontWeight: 800, fontSize: '2rem', color: '#222' }}>0.8s</span>
+                  <span style={{ color: '#374151', fontWeight: 500 }}>Avg. Response Time</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 150, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '2rem', color: '#ef4444' }}>🚨</span>
+                  <span style={{ fontWeight: 800, fontSize: '2rem', color: '#222' }}>37</span>
+                  <span style={{ color: '#374151', fontWeight: 500 }}>Spike Alerts Resolved</span>
+                </div>
+                <div style={{ flex: 1, minWidth: 150, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
+                  <span style={{ fontSize: '2rem', color: '#6366f1' }}>🌎</span>
+                  <span style={{ fontWeight: 800, fontSize: '2rem', color: '#222' }}>22</span>
+                  <span style={{ color: '#374151', fontWeight: 500 }}>Languages Supported</span>
+                </div>
+              </div>
+            </section>
             {/* All dashboard/statistics/charts content moved here */}
             <section className="stats-grid">
               <div className="card">
@@ -639,6 +685,129 @@ const SentimentWatchdog = () => {
                     <Tooltip contentStyle={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)'}}/>
                   </PieChart>
                 </ResponsiveContainer>
+              </div>
+            </section>
+            {/* Tech Corp Analysis Card */}
+            <section className="card" style={{ marginBottom: '2rem', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', boxShadow: '0 2px 16px 0 rgba(0,0,0,0.08)', border: '1px solid #e5e7eb' }}>
+              <h3 style={{ fontWeight: 700, fontSize: '1.3rem', marginBottom: '1.2rem' }}>Tech Corp Analysis</h3>
+              <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.2rem' }}>
+                <button
+                  style={{ background: techTab === 'Product Update Summary' ? '#f3f4f6' : 'none', border: 'none', borderRadius: '1.5rem', padding: '0.5rem 1.5rem', fontWeight: 600, color: techTab === 'Product Update Summary' ? '#222' : '#888', boxShadow: 'none', outline: 'none', cursor: 'pointer', transition: 'background 0.2s, color 0.2s' }}
+                  onClick={() => setTechTab('Product Update Summary')}
+                >Product Update Summary</button>
+                <button
+                  style={{ background: techTab === 'Business Analysis' ? '#f3f4f6' : 'none', border: 'none', borderRadius: '1.5rem', padding: '0.5rem 1.5rem', fontWeight: 600, color: techTab === 'Business Analysis' ? '#222' : '#888', boxShadow: 'none', outline: 'none', cursor: 'pointer', transition: 'background 0.2s, color 0.2s' }}
+                  onClick={() => setTechTab('Business Analysis')}
+                >Business Analysis</button>
+              </div>
+              {techTab === 'Product Update Summary' && (
+                <div style={{ marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div style={{ background: '#e5edfa', color: '#3b82f6', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>Enterprise grade security with SSO and MFA</div>
+                  <div style={{ background: '#e5edfa', color: '#3b82f6', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>API-first architecture with comprehensive developer tools</div>
+                  <div style={{ background: '#e5edfa', color: '#3b82f6', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>White-label solutions for enterprise partners</div>
+                  <div style={{ background: '#e5edfa', color: '#3b82f6', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>Mobile-responsive design with offline capabilities</div>
+                </div>
+              )}
+              {techTab === 'Business Analysis' && (
+                <div style={{ marginBottom: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div style={{ background: '#e0f2fe', color: '#0ea5e9', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>Strong year-over-year revenue growth</div>
+                  <div style={{ background: '#e0f2fe', color: '#0ea5e9', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>Expanding enterprise client base</div>
+                  <div style={{ background: '#e0f2fe', color: '#0ea5e9', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>Increased R&D investment in AI/ML</div>
+                  <div style={{ background: '#e0f2fe', color: '#0ea5e9', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500, width: 'fit-content' }}>Strategic partnerships with cloud providers</div>
+                </div>
+              )}
+              <div style={{ display: 'flex', gap: '2rem', marginTop: '2rem', flexWrap: 'wrap' }}>
+                <div style={{ flex: 1, minWidth: 220 }}>
+                  <h4 style={{ color: '#ef4444', fontWeight: 700, marginBottom: '0.7rem' }}>Threats</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div style={{ background: '#fee2e2', color: '#ef4444', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Increasing competition from tech giants (Google, Microsoft, AWS)</div>
+                    <div style={{ background: '#fee2e2', color: '#ef4444', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Seasonal downturn affecting enterprise software spending</div>
+                    <div style={{ background: '#fee2e2', color: '#ef4444', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Data privacy regulations impacting API integrations</div>
+                    <div style={{ background: '#fee2e2', color: '#ef4444', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Potential market saturation in core verticals</div>
+                  </div>
+                </div>
+                <div style={{ flex: 1, minWidth: 220 }}>
+                  <h4 style={{ color: '#2563eb', fontWeight: 700, marginBottom: '0.7rem' }}>Opportunities</h4>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <div style={{ background: '#e5edfa', color: '#2563eb', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Expansion into international markets (Asia Pacific, Europe)</div>
+                    <div style={{ background: '#e5edfa', color: '#2563eb', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>AI-powered features for emerging use cases (sustainability, ESG)</div>
+                    <div style={{ background: '#e5edfa', color: '#2563eb', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Acquisition of complementary technologies or companies</div>
+                    <div style={{ background: '#e5edfa', color: '#2563eb', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Partnership opportunities with major cloud providers</div>
+                    <div style={{ background: '#e5edfa', color: '#2563eb', borderRadius: '1.5rem', padding: '0.5rem 1.2rem', fontWeight: 500 }}>Development of industry-specific solutions and verticals</div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            {/* Predicted Trends Card */}
+            <section className="card" style={{ marginBottom: '2rem', maxWidth: 900, marginLeft: 'auto', marginRight: 'auto', boxShadow: '0 2px 16px 0 rgba(0,0,0,0.06)' }}>
+              <h3 style={{ fontWeight: 700, fontSize: '1.3rem', marginBottom: '1.2rem' }}>Predicted Trends</h3>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '2rem' }}>
+                {/* Left Side */}
+                <div style={{ flex: 1, minWidth: 260 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1rem' }}>
+                    <div style={{ fontWeight: 600, color: '#2563eb' }}>Update Frequency<br /><span style={{ fontWeight: 400, color: '#222' }}>15 days</span></div>
+                    <div style={{ fontWeight: 600, color: '#f59e0b' }}>Next Update<br /><span style={{ fontWeight: 400, color: '#222' }}>24% Probability</span></div>
+                  </div>
+                  <div style={{ fontWeight: 700, marginBottom: '0.7rem' }}>Top Predictions</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                      <span role="img" aria-label="ai" style={{ fontSize: '1.2em' }}>🤖</span>
+                      <span style={{ flex: 1 }}>New AI-powered features and intelligent automation</span>
+                      <span style={{ color: '#10b981', fontWeight: 600 }}>97% confidence</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                      <span role="img" aria-label="security" style={{ fontSize: '1.2em' }}>🔒</span>
+                      <span style={{ flex: 1 }}>Advanced security features and compliance updates</span>
+                      <span style={{ color: '#2563eb', fontWeight: 600 }}>88% confidence</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                      <span role="img" aria-label="mobile" style={{ fontSize: '1.2em' }}>📱</span>
+                      <span style={{ flex: 1 }}>Mobile app enhancements and cross-platform improvements</span>
+                      <span style={{ color: '#f59e0b', fontWeight: 600 }}>79% confidence</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                      <span role="img" aria-label="ml" style={{ fontSize: '1.2em' }}>🧠</span>
+                      <span style={{ flex: 1 }}>Advanced AI capabilities and machine learning integrations</span>
+                      <span style={{ color: '#ef4444', fontWeight: 600 }}>75% confidence</span>
+                    </div>
+                  </div>
+                  {/* Static bar chart */}
+                  <div style={{ marginTop: '2rem' }}>
+                    <div style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Update Frequency (6 months)</div>
+                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: '0.5rem', height: 60 }}>
+                      {[20, 35, 30, 40, 25, 15].map((val, i) => (
+                        <div key={i} style={{ width: 18, height: val, background: '#3b82f6', borderRadius: 4 }}></div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                {/* Right Side */}
+                <div style={{ flex: 1, minWidth: 260 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '1rem' }}>
+                    <div style={{ fontWeight: 600, color: '#2563eb' }}>Update Frequency<br /><span style={{ fontWeight: 400, color: '#222' }}>15 days</span></div>
+                    <div style={{ fontWeight: 600, color: '#f59e0b' }}>Next Update<br /><span style={{ fontWeight: 400, color: '#222' }}>20% Probability</span></div>
+                  </div>
+                  <div style={{ fontWeight: 700, marginBottom: '0.7rem' }}>Top Predictions</div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                      <span role="img" aria-label="performance" style={{ fontSize: '1.2em' }}>⚡</span>
+                      <span style={{ flex: 1 }}>Significant performance optimizations and speed improvements</span>
+                      <span style={{ color: '#10b981', fontWeight: 600 }}>90% confidence</span>
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
+                      <span role="img" aria-label="security" style={{ fontSize: '1.2em' }}>🔒</span>
+                      <span style={{ flex: 1 }}>Advanced security features and compliance updates</span>
+                      <span style={{ color: '#2563eb', fontWeight: 600 }}>86% confidence</span>
+                    </div>
+                  </div>
+                  {/* Static pie/donut chart */}
+                  <div style={{ marginTop: '2rem' }}>
+                    <div style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Focus Areas</div>
+                    <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'conic-gradient(#3b82f6 0% 40%, #f59e0b 40% 70%, #10b981 70% 100%)', margin: '0 auto', position: 'relative' }}>
+                      <span style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%,-50%)', fontWeight: 700, color: '#222', fontSize: '1.1rem' }}>AI</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </section>
           </>
