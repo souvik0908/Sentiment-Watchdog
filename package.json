@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@vitejs/plugin-react": "^4.7.0"
+  },
+  "dependencies": {
+    "react-wordcloud": "^1.2.7"
   }
 }
