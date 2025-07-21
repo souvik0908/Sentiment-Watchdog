@@ -1,8 +1,6 @@
-/* --- THEME & FONT DEFINITIONS --- */
 :root {
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
   
-  /* Light Theme */
   --bg-primary: #f9fafb;
   --bg-secondary: #ffffff;
   --text-primary: #111827;
@@ -10,7 +8,6 @@
   --border-color: #e5e7eb;
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 
-  /* Accent Colors */
   --color-positive: #10b981;
   --color-positive-bg: #d1fae5;
   --color-negative: #ef4444;
@@ -22,7 +19,6 @@
 }
 
 .dark {
-  /* Dark Theme */
   --bg-primary: #111827;
   --bg-secondary: #1f2937;
   --text-primary: #f9fafb;
@@ -30,7 +26,6 @@
   --border-color: #374151;
   --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.2), 0 1px 2px -1px rgb(0 0 0 / 0.2);
 
-  /* Dark Accent Colors */
   --color-positive: #34d399;
   --color-positive-bg: rgba(16, 185, 129, 0.1);
   --color-negative: #f87171;
@@ -39,7 +34,6 @@
   --color-neutral-bg: rgba(107, 114, 128, 0.1);
 }
 
-/* --- BASE LAYOUT --- */
 body {
   margin: 0;
   font-family: var(--font-sans);
@@ -58,7 +52,6 @@ body {
   margin: 0 auto;
 }
 
-/* --- HEADER --- */
 .header {
   display: flex;
   align-items: center;
@@ -98,7 +91,6 @@ body {
   background-color: var(--border-color);
 }
 
-/* --- CARDS & PANELS --- */
 .card {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
@@ -114,7 +106,6 @@ body {
   margin-bottom: 2rem;
 }
 
-/* --- GRID LAYOUTS (Responsive) --- */
 @media (min-width: 768px) {
   .stats-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -130,7 +121,6 @@ body {
   }
 }
 
-/* --- STAT CARD --- */
 .stat-card-header {
   display: flex;
   align-items: center;
@@ -151,7 +141,6 @@ body {
   font-size: 0.875rem;
 }
 
-/* --- FEED & ALERTS PANEL --- */
 .panel-header {
   display: flex;
   align-items: center;
@@ -163,14 +152,13 @@ body {
   font-weight: 600;
 }
 .panel-scroll-content {
-  max-height: 24rem; /* 384px */
+  max-height: 24rem;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-/* --- TICKET ITEM --- */
 .ticket-item {
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
@@ -208,7 +196,6 @@ body {
   color: var(--text-secondary);
 }
 
-/* --- SENTIMENT BADGES --- */
 .sentiment-badge {
   padding: 0.25rem 0.5rem;
   border-radius: 9999px;
@@ -230,4 +217,157 @@ body {
 .sentiment-neutral, .sentiment-confused, .sentiment-delighted {
   color: var(--color-neutral);
   background-color: var(--color-neutral-bg);
+}
+
+.spike-alert {
+  background-color: var(--color-negative-bg);
+  color: var(--color-negative);
+  border: 1px solid var(--color-negative);
+  border-radius: 0.75rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.live-chat-section {
+  margin-bottom: 2rem;
+}
+
+.chat-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.chat-textarea {
+  width: 100%;
+  min-height: 80px;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  resize: vertical;
+}
+
+.chat-button {
+  align-self: flex-end;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--color-accent);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.chat-button:hover {
+  background-color: #2563eb;
+}
+
+.chat-button:disabled {
+  background-color: var(--color-neutral);
+  cursor: not-allowed;
+}
+
+.analysis-result {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.analysis-result p {
+  margin: 0.5rem 0;
+}
+
+.analysis-result p:first-child {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.analysis-result strong {
+  color: var(--color-accent);
+}
+
+.analysis-result.sentiment-positive strong {
+  color: var(--color-positive);
+}
+
+.analysis-result.sentiment-negative strong {
+  color: var(--color-negative);
+}
+
+.analysis-result.sentiment-neutral strong {
+  color: var(--color-neutral);
+}
+
+.live-analysis-section {
+  margin-bottom: 2rem;
+}
+
+.analysis-input-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.analysis-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  resize: vertical;
+}
+
+.analysis-button {
+  align-self: flex-end;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--color-accent);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.analysis-button:hover {
+  background-color: #2563eb;
+}
+
+.analysis-button:disabled {
+  background-color: var(--color-neutral);
+  cursor: not-allowed;
+}
+
+.analysis-result {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  background-color: var(--bg-primary);
+}
+
+.analysis-result p {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.analysis-result p:first-child {
+  margin-bottom: 0.5rem;
 }
